@@ -1,0 +1,11 @@
+name = "scr-web"
+main = "worker.js"
+compatibility_date = "2026-06-18"
+
+[vars]
+SERPER_MONTHLY_LIMIT = "2500"
+SERPER_REQUESTS_PER_SECOND = "2"
+
+[[kv_namespaces]]
+binding = "SEARCH_KV"
+id = "846f0008f90b424686b7f60686522247"

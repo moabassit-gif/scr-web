@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+dist-worker/
+search_cache.json
+scr_web_search_cache.json
+scr_web_serper_usage.json
+*.rar
+*.zip
+*.log

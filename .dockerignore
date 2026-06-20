@@ -1,0 +1,16 @@
+.env
+.env.*
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.git/
+.gitignore
+node_modules/
+dist-worker/
+*.rar
+*.zip
+search_cache.json
+scr_web_search_cache.json
+scr_web_serper_usage.json
