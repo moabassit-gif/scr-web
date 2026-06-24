@@ -15,7 +15,16 @@ DEFAULT_BASE_URL = os.getenv("GATEWAY_BASE_URL", DEFAULT_PUBLIC_GATEWAY)  # Pref
 
 
 def request_json(base_url: str, path: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Call one gateway endpoint and return its JSON response."""  # Explain the helper purpose.
+    """
+    Send a GET request to one gateway endpoint and return the parsed JSON.
+
+    This is the shared HTTP helper used by all commands. It receives the
+    gateway base URL, the endpoint path, and optional query parameters, then
+    calls the API and raises a clear exception if the server returns an error.
+
+    Example:
+        request_json("https://scr-web.your-radar.workers.dev", "/articles", {"q": "nursing home"})
+    """
     url = f"{base_url.rstrip('/')}{path}"  # Join the base URL and endpoint path cleanly.
     response = requests.get(url, params=params or {}, timeout=60)  # Send a GET request with query params.
     response.raise_for_status()  # Raise an exception for HTTP 4xx/5xx responses.
@@ -23,12 +32,29 @@ def request_json(base_url: str, path: str, params: dict[str, Any] | None = None)
 
 
 def print_json(data: Any) -> None:
-    """Print JSON without escaping Arabic or other non-ASCII text."""  # Explain output formatting.
+    """
+    Print API data as readable JSON in the terminal.
+
+    `ensure_ascii=False` keeps Arabic text and other non-English characters
+    readable instead of escaping them as unicode sequences.
+    """
     print(json.dumps(data, ensure_ascii=False, indent=2))  # Pretty-print the response for humans.
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Create the command-line parser and all supported subcommands."""  # Explain parser setup.
+    """
+    Build the command-line interface for the gateway client.
+
+    This function defines every command the user can run:
+      - links: search keyword and return only URLs/snippets
+      - articles: search keyword, get URLs, then scrape article JSON
+      - scrape-url: scrape a single known URL
+      - serper-raw: return the raw Serper response
+      - usage: show local tracked Serper key usage
+      - url: print a ready-to-use endpoint URL without calling it
+
+    Returning a parser keeps `main()` focused on execution instead of CLI setup.
+    """
     parser = argparse.ArgumentParser(description="Client for the SCR Web gateway API")  # Main CLI parser.
     parser.add_argument(  # Add a global option shared by every command.
         "--base-url",  # Allow callers to override the gateway URL.
@@ -68,7 +94,17 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Run the selected CLI command and return an exit code."""  # Explain entrypoint behavior.
+    """
+    Parse command-line arguments, call the selected gateway endpoint, and print JSON.
+
+    The return value is a standard process exit code:
+      - 0 means success
+      - 1 means the gateway/network request failed
+      - 2 means invalid CLI usage
+
+    This function is the operational entrypoint for the file. All endpoint
+    commands flow through this function.
+    """
     parser = build_parser()  # Build the CLI parser.
     args = parser.parse_args()  # Parse command-line arguments.
     base_url = args.base_url.rstrip("/")  # Normalize the base URL once.
