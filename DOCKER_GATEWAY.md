@@ -64,13 +64,19 @@ Use `gateway_client.py` to call the gateway from Python/CLI.
 Default base URL for the Python client:
 
 ```text
-http://127.0.0.1:8000
+https://scr-web.your-radar.workers.dev
 ```
 
-Use that only when the client runs on the same server. From another machine, override it:
+To call your Docker server instead, override it:
 
 ```bash
 python gateway_client.py --base-url "http://SERVER_IP:8000" usage
+```
+
+To call Docker from the same machine:
+
+```bash
+python gateway_client.py --base-url "http://127.0.0.1:8000" usage
 ```
 
 ## Examples

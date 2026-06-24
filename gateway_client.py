@@ -10,7 +10,8 @@ from urllib.parse import urlencode
 import requests
 
 
-DEFAULT_BASE_URL = os.getenv("GATEWAY_BASE_URL", "http://127.0.0.1:8000")
+DEFAULT_PUBLIC_GATEWAY = "https://scr-web.your-radar.workers.dev"
+DEFAULT_BASE_URL = os.getenv("GATEWAY_BASE_URL", DEFAULT_PUBLIC_GATEWAY)
 
 
 def request_json(base_url: str, path: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -29,7 +30,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--base-url",
         default=DEFAULT_BASE_URL,
-        help="Gateway base URL. Default: GATEWAY_BASE_URL or http://127.0.0.1:8000",
+        help=f"Gateway base URL. Default: GATEWAY_BASE_URL or {DEFAULT_PUBLIC_GATEWAY}",
     )
 
     subparsers = parser.add_subparsers(dest="command", required=True)

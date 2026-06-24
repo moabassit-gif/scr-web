@@ -41,6 +41,18 @@ From another machine, call:
 http://YOUR_SERVER_IP:8000/articles?q=nursing%20home&limit=10&country=us
 ```
 
+The Python gateway client defaults to the Cloudflare Worker:
+
+```bash
+python gateway_client.py articles "nursing home" --limit 10 --country us
+```
+
+To call your Docker server instead:
+
+```bash
+python gateway_client.py --base-url "http://YOUR_SERVER_IP:8000" articles "nursing home" --limit 10 --country us
+```
+
 ## Extract One URL
 
 ```text
