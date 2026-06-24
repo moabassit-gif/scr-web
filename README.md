@@ -11,11 +11,34 @@ A small Python API that accepts article URLs and returns JSON:
 }
 ```
 
-## Setup
+## Local Setup
 
 ```bash
 pip install -r requirements.txt
 uvicorn app:app --reload
+```
+
+## Docker Server Setup
+
+Create `.env` from `.env.example`, add your Serper keys, and set the public URL users will call:
+
+```env
+SERPER_API_KEYS=key1,key2,key3
+SERPER_MONTHLY_LIMIT=2500
+SERPER_REQUESTS_PER_SECOND=2
+PUBLIC_BASE_URL=http://YOUR_SERVER_IP:8000
+```
+
+Run:
+
+```bash
+docker compose up -d --build
+```
+
+From another machine, call:
+
+```text
+http://YOUR_SERVER_IP:8000/articles?q=nursing%20home&limit=10&country=us
 ```
 
 ## Extract One URL
@@ -43,13 +66,13 @@ SERPER_REQUESTS_PER_SECOND=2
 Check local monthly usage:
 
 ```text
-http://127.0.0.1:8000/search-usage
+http://YOUR_SERVER_IP:8000/search-usage
 ```
 
 Then search and optionally extract articles:
 
 ```text
-http://127.0.0.1:8000/search?q=site:bbc.com world cup article&limit=1&extract=true
+http://YOUR_SERVER_IP:8000/articles?q=nursing%20home&limit=10&country=us
 ```
 
 If `SERPER_API_KEY` is missing, the app falls back to Google Custom Search if `GOOGLE_API_KEY` and `GOOGLE_CSE_ID` are set.

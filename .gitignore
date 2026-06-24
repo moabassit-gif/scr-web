@@ -14,3 +14,4 @@ scr_web_serper_usage.json
 *.rar
 *.zip
 *.log
+_push_tmp/

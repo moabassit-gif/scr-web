@@ -14,10 +14,22 @@ Check status:
 docker compose ps
 ```
 
-Open:
+Open from the same machine:
 
 ```text
 http://127.0.0.1:8000
+```
+
+Open from another machine on the network/server:
+
+```text
+http://SERVER_IP:8000
+```
+
+If you have a domain, point it to the server and set:
+
+```env
+PUBLIC_BASE_URL=https://api.example.com
 ```
 
 Stop:
@@ -40,6 +52,7 @@ The container reads keys from `.env`:
 SERPER_API_KEYS=key1,key2,key3
 SERPER_MONTHLY_LIMIT=2500
 SERPER_REQUESTS_PER_SECOND=2
+PUBLIC_BASE_URL=http://SERVER_IP:8000
 ```
 
 `.env` is not copied into the Docker image because `.dockerignore` excludes it. Docker Compose passes it at runtime.
@@ -48,16 +61,16 @@ SERPER_REQUESTS_PER_SECOND=2
 
 Use `gateway_client.py` to call the gateway from Python/CLI.
 
-Default base URL:
+Default base URL for the Python client:
 
 ```text
 http://127.0.0.1:8000
 ```
 
-You can override it:
+Use that only when the client runs on the same server. From another machine, override it:
 
 ```bash
-python gateway_client.py --base-url "https://scr-web.your-radar.workers.dev" usage
+python gateway_client.py --base-url "http://SERVER_IP:8000" usage
 ```
 
 ## Examples

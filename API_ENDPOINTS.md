@@ -3,11 +3,12 @@
 Base URLs:
 
 ```text
-Local:      http://127.0.0.1:8000
-Cloudflare: https://scr-web.your-radar.workers.dev
+Same server only: http://127.0.0.1:8000
+Docker server:     http://SERVER_IP:8000
+Cloudflare:        https://scr-web.your-radar.workers.dev
 ```
 
-Use the Cloudflare URL in production, and the local URL while developing on your machine.
+Use `127.0.0.1` only from the same machine/container host. Use `SERVER_IP`, your domain, or the Cloudflare URL from outside.
 
 ## 1. Search Links
 
@@ -20,7 +21,7 @@ GET /links?q=iphone%2017%20pro%20max&limit=10&country=eg
 Curl:
 
 ```bash
-curl "https://scr-web.your-radar.workers.dev/links?q=iphone%2017%20pro%20max&limit=10&country=eg"
+curl "http://SERVER_IP:8000/links?q=iphone%2017%20pro%20max&limit=10&country=eg"
 ```
 
 Query params:
@@ -67,7 +68,7 @@ GET /articles?q=iphone%2017%20pro%20max&limit=10&country=eg
 Curl:
 
 ```bash
-curl "https://scr-web.your-radar.workers.dev/articles?q=iphone%2017%20pro%20max&limit=10&country=eg"
+curl "http://SERVER_IP:8000/articles?q=iphone%2017%20pro%20max&limit=10&country=eg"
 ```
 
 Response:
@@ -127,7 +128,7 @@ GET /scrape-url?url=https%3A%2F%2Fexample.com%2Farticle
 Curl:
 
 ```bash
-curl "https://scr-web.your-radar.workers.dev/scrape-url?url=https%3A%2F%2Fwww.bbc.com%2Fsport%2Ffootball%2Farticles%2Fcg74rzx582ko"
+curl "http://SERVER_IP:8000/scrape-url?url=https%3A%2F%2Fwww.bbc.com%2Fsport%2Ffootball%2Farticles%2Fcg74rzx582ko"
 ```
 
 Response:
@@ -168,7 +169,7 @@ GET /serper-raw?q=iphone%2017%20pro%20max&limit=10&country=eg
 Curl:
 
 ```bash
-curl "https://scr-web.your-radar.workers.dev/serper-raw?q=iphone%2017%20pro%20max&limit=10&country=eg"
+curl "http://SERVER_IP:8000/serper-raw?q=iphone%2017%20pro%20max&limit=10&country=eg"
 ```
 
 Response:
@@ -212,7 +213,7 @@ GET /search-usage
 Curl:
 
 ```bash
-curl "https://scr-web.your-radar.workers.dev/search-usage"
+curl "http://SERVER_IP:8000/search-usage"
 ```
 
 Response:
@@ -256,7 +257,7 @@ GET /
 Curl:
 
 ```bash
-curl "https://scr-web.your-radar.workers.dev/"
+curl "http://SERVER_IP:8000/"
 ```
 
 Response:

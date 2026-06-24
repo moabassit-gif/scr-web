@@ -90,6 +90,7 @@ SERPER_USAGE_FILE = Path(os.getenv("TEMP", ".")) / "scr_web_serper_usage.json"
 SEARCH_CACHE_TTL_SECONDS = 6 * 60 * 60
 SERPER_MONTHLY_LIMIT = int(os.getenv("SERPER_MONTHLY_LIMIT", "2500"))
 SERPER_REQUESTS_PER_SECOND = float(os.getenv("SERPER_REQUESTS_PER_SECOND", "2"))
+PUBLIC_BASE_URL = os.getenv("PUBLIC_BASE_URL", "http://127.0.0.1:8000").rstrip("/")
 SERPER_RATE_LOCK = threading.Lock()
 SERPER_LAST_REQUEST_AT = 0.0
 
@@ -638,12 +639,13 @@ def search_usage():
 def health_check():
     return {
         "message": "Send a URL to /extract or a query to /search",
-        "example": "/extract?url=https://example.com/article",
-        "search_example": "/search?q=bbc world cup&limit=5&extract=true",
-        "links_example": "/links?q=site:bbc.com/sport/football/articles world cup&limit=10",
-        "articles_example": "/articles?q=site:bbc.com/sport/football/articles world cup&limit=10",
-        "serper_raw_example": "/serper-raw?q=iphone 17 pro max&limit=10",
-        "scrape_url_example": "/scrape-url?url=https://www.bbc.com/sport/football/articles/cg74rzx582ko",
-        "usage_example": "/search-usage",
+        "base_url": PUBLIC_BASE_URL,
+        "example": f"{PUBLIC_BASE_URL}/extract?url=https://example.com/article",
+        "search_example": f"{PUBLIC_BASE_URL}/search?q=bbc world cup&limit=5&extract=true",
+        "links_example": f"{PUBLIC_BASE_URL}/links?q=site:bbc.com/sport/football/articles world cup&limit=10",
+        "articles_example": f"{PUBLIC_BASE_URL}/articles?q=site:bbc.com/sport/football/articles world cup&limit=10",
+        "serper_raw_example": f"{PUBLIC_BASE_URL}/serper-raw?q=iphone 17 pro max&limit=10",
+        "scrape_url_example": f"{PUBLIC_BASE_URL}/scrape-url?url=https://www.bbc.com/sport/football/articles/cg74rzx582ko",
+        "usage_example": f"{PUBLIC_BASE_URL}/search-usage",
         "serper_requests_per_second": SERPER_REQUESTS_PER_SECOND,
     }
